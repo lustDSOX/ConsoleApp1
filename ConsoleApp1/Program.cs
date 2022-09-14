@@ -9,13 +9,22 @@ namespace ConsoleApp1
 {
     internal class Program
     {
+        static List<Transport> transports = new List<Transport>();
         static void Main(string[] args)
         {
-            List<Transport> transports= new List<Transport>();
+          
             transports.Add(new Automobile() {mark = "Nisan",model = "V8",horsepower = 4});
             transports.Add(new MotoBike() { mark = "Yamaha", model = "14.1", horsepower = 1,wheelchair = false });
             transports.Add(new Truck() {mark = "Honda",model = "SEX PISTOLS",horsepower = 10, trailer = true});
 
+            while (true)
+            {
+                Main_print();
+            }
+        }
+
+        static void Main_print()
+        {
             foreach (var item in transports)
             {
                 item.GetLC();
@@ -24,7 +33,57 @@ namespace ConsoleApp1
             }
 
 
-            ReadKey();
+            WriteLine("чтобы перейтив режим поиска нажмите s");
+
+            if (ReadLine() == "s")
+                Search_mode();
+            else
+                Clear();
+        }
+
+        static void Search_mode()
+        {
+            string[] text;
+            while (true)
+            {
+                while (true)
+                {
+                    Clear();
+                    WriteLine("Введите нужные рамки по грузоподъемности (например 10-13)");
+                    text = ReadLine().Split('-');
+                    if (int.TryParse(text[0], out int i) && int.TryParse(text[1], out int o))
+                    {
+                        break;
+                    }
+
+                }
+
+                WriteLine("___________________________________________");
+                int min = Convert.ToInt32(text[0]);
+                int max = Convert.ToInt32(text[1]);
+
+                foreach (Transport item in transports)
+                {
+                    if (item.load_capacity >= min && item.load_capacity <= max)
+                    {
+                        item.PrintDetal();
+                        WriteLine("\n");
+                    }
+                }
+
+                WriteLine("Чтобы вернуться назад нажмите enter, чтобы воспользоваться поиском еще раз - r");
+                string end_text = ReadLine();
+                if (end_text == "")
+                {
+                    Clear();
+                    break;
+                }
+                else if(end_text== "r")
+                {
+                    Search_mode();
+                }
+
+            }
         }
 
         abstract class Transport
