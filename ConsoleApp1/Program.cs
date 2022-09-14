@@ -18,6 +18,7 @@ namespace ConsoleApp1
 
             foreach (var item in transports)
             {
+                item.GetLC();
                 item.PrintDetal();
                 WriteLine("\n");
             }
@@ -37,9 +38,9 @@ namespace ConsoleApp1
                 WriteLine("Марка - {0,5} \nмодель - {1,5} \nлошадиные силы - {2,4} \nгрузоподъесность - {3,4}", mark,model,horsepower,load_capacity);
             }
 
-            public double GetLC()
+            public virtual void GetLC()
             {
-               return horsepower * 2.5 / Math.PI;
+               load_capacity = horsepower * 2.5 / Math.PI;
             }
         }
 
@@ -49,42 +50,23 @@ namespace ConsoleApp1
         class MotoBike : Transport
         {
             public bool wheelchair;
-            double LC = 0;
-            public override double load_capacity
+            public override void GetLC()
             {
-                get => LC;
-                set
-                {
-                    if (!wheelchair)
-                    {
-                        LC = value;
-                    }
-                    else
-                    {
-                        LC = GetLC();
-                    }
-                }
+                if (wheelchair)
+                    load_capacity = horsepower * 2.5 / Math.PI;
+                else
+                    load_capacity = 0;
             }
         }
         class Truck : Transport
         {
             public bool trailer;
-            double LC = 0;
-            public override double load_capacity
+            public override void GetLC()
             {
-                get => 0;
-                set
-                {
-                    if (trailer)
-                    {
-  
-                        LC = GetLC() * 2;
-                    }
-                    else
-                    {
-                        LC = GetLC();
-                    }
-                }
+                if (trailer)
+                    load_capacity = horsepower * 2.5 / Math.PI * 2;
+                else
+                    load_capacity = horsepower * 2.5 / Math.PI;
             }
         }
     }
