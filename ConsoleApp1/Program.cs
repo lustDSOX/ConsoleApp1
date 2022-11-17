@@ -22,7 +22,10 @@ namespace ConsoleApp1
                 Main_print();
             }
         }
-
+        static void Nissan_repair()
+        {
+         Console.WriteLine("Саня починился!!!");
+        }
         static void Main_print()
         {
             foreach (var item in transports)
