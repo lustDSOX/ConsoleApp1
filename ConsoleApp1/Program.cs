@@ -19,16 +19,7 @@ namespace ConsoleApp1
 
             while (true)
             {
-                Main_print();
-            }
-        }
-        static void Nissan_repair()
-        {
-         Console.WriteLine("Саня починился!!!");
-        }
-        static void Main_print()
-        {
-            foreach (var item in transports)
+               foreach (var item in transports)
             {
                 item.GetLC();
                 item.PrintDetal();
@@ -42,6 +33,11 @@ namespace ConsoleApp1
                 Search_mode();
             else
                 Clear();
+            }
+        }
+        static void Nissan_repair()
+        {
+         Console.WriteLine("Саня починился!!!");
         }
 
         static void Search_mode()
